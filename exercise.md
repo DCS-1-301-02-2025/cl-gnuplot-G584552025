@@ -15,7 +15,7 @@
 
 次の「みほん」の図と同じようになるように gnuplotの記述を追記せよ.
 
-- 関数は $y = f1(x) =2x^2\sqrt{x}-5x^2$ と $\displaystyle y= f2(x) = \frac{x}{\log{x}}$ とする．
+- 関数は $y = f1(x) =2x^2\sqrt{x}-5x^2$ と $\displaystyle y= f2(x) = \frac{x}{\log{x}}$とする．
 - xの範囲を $0 \leq x \leq 7$ に，yの範囲を $-20 \leq y \leq 15$にする．
 - グラフのタイトル，x軸のラベル，y軸のラベルを付ける．
 - 格子状の補助線を入れる．
@@ -25,6 +25,13 @@
 
 ```gnuplot {cmd=true output="html"}
 set terminal svg
+set xrange [0:7]
+set yrange [-20:15]
+set title "関数のプロット"
+set xlabel "x"
+set ylabel "y"
+set grid
+plot 2*x**2*sqrt(x)-5*x**2 t "f1(x)", x/log(x) t "f2(x)"
 
 ```
 
@@ -47,6 +54,11 @@ set xdata time
 set timefmt '%Y/%m/%d'
 set xtics format "%m/%d"
 
+set datafile separator comma
+set title "八王子の気温(過去一年間)
+set ylabel "温度"
+set grid
+plot "weather2025.csv" u 1:2 w l t "最高気温", "" u 1:3 w l t "最高気温(平年)", "" u 1:4 w l t "最低気温", "" u 1:5 w l t "最低気温(平年)
 ```
 
 ## 4． 誕生月
@@ -66,6 +78,16 @@ set xtics format "%m/%d"
 ```gnuplot {cmd=true, output="html"}
 set terminal svg
 unset key
+set style fill solid
+set boxwidth 0.6
+set style line 1 lc rgb "skyblue"
+set yrange [0:16]
+set title "誕生日の月別人数"
+set ylabel "人" offset graph 0,0.5 rotate by 0
+set xtics ("1月" 1, "2月" 2, "3月" 3, "4月" 4, "5月" 5, "6月" 6, \
+           "7月" 7, "8月" 8, "9月" 9, "10月" 10, "11月" 11, "12月" 12)
+set grid
+plot "bm.txt" using 1:2 with boxes ls 1 notitle
 
 
 ```
